@@ -1,7 +1,6 @@
 {
   "name": "task-manager",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +9,15 @@
   "license": "ISC",
   "dependencies": {
     "mongodb": "^3.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shivam0Anand/task-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shivam0Anand/task-manager/issues"
+  },
+  "homepage": "https://github.com/Shivam0Anand/task-manager#readme",
+  "description": ""
 }
