@@ -1,5 +1,4 @@
-const mongodb = require("mongodb");
-const MongoClient = mongodb.MongoClient;
+const { MongoClient, ObjectID } = require("mongodb");
 
 const connectionURL = "mongodb://127.0.0.1:27017";
 const databaseName = "task-manager";
@@ -13,6 +12,10 @@ MongoClient.connect(
     }
 
     const db = client.db(databaseName);
+
+    const id = new ObjectID();
+    console.log(id);
+    console.log(id.toHexString().length);
 
     // db.collection("users").insertOne(
     //   {
@@ -48,28 +51,28 @@ MongoClient.connect(
     //   }
     // );
 
-    db.collection("tasks").insertMany(
-      [
-        {
-          discription: "take sunrise picture",
-          completed: false
-        },
-        {
-          discription: "lunch",
-          completed: false
-        },
-        {
-          discription: "kaam ho gya",
-          completed: true
-        }
-      ],
-      (error, result) => {
-        if (error) {
-          return console.log("Insert na hua!");
-        }
+    // db.collection("tasks").insertMany(
+    //   [
+    //     {
+    //       discription: "take sunrise picture",
+    //       completed: false
+    //     },
+    //     {
+    //       discription: "lunch",
+    //       completed: false
+    //     },
+    //     {
+    //       discription: "kaam ho gya",
+    //       completed: true
+    //     }
+    //   ],
+    //   (error, result) => {
+    //     if (error) {
+    //       return console.log("Insert na hua!");
+    //     }
 
-        console.log(result.ops);
-      }
-    );
+    //     console.log(result.ops);
+    //   }
+    // );
   }
 );
