@@ -13,15 +13,38 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("users").findOne(
-      { _id: new ObjectID("5d7cab559d446c092c7edf38") },
-      (error, user) => {
+    // db.collection("users").findOne(
+    //   { _id: new ObjectID("5d7cab559d446c092c7edf38") },
+    //   (error, user) => {
+    //     if (error) {
+    //       return console.log("unable to fetch!");
+    //     }
+
+    //     console.log(user);
+    //   }
+    // );
+
+    db.collection("tasks").findOne(
+      { _id: new ObjectID("5d7ca75695a2e022041e5682") },
+      (error, task) => {
         if (error) {
-          return console.log("unable to fetch!");
+          return console.log("Unable to fetch data!");
         }
 
-        console.log(user);
+        console.log(task);
       }
     );
+
+    db.collection("tasks")
+      .find({ completed: false })
+      .toArray((error, tasks) => {
+        console.log(tasks);
+      });
+
+    db.collection("tasks")
+      .find({ completed: false })
+      .count((error, count) => {
+        console.log(count);
+      });
   }
 );
