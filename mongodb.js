@@ -13,9 +13,22 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    db.collection("users").insertOne({
-      name: "shivam",
-      age: 21
-    });
+    db.collection("users")
+      .updateOne(
+        {
+          _id: new ObjectID("5d80e2216728641c24b22a94")
+        },
+        {
+          $inc: {
+            age: 1
+          }
+        }
+      )
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 );
