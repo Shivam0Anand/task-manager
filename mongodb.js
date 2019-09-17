@@ -13,22 +13,11 @@ MongoClient.connect(
 
     const db = client.db(databaseName);
 
-    // db.collection("users").findOne(
-    //   { _id: new ObjectID("5d7cab559d446c092c7edf38") },
-    //   (error, user) => {
-    //     if (error) {
-    //       return console.log("unable to fetch!");
-    //     }
-
-    //     console.log(user);
-    //   }
-    // );
-
     db.collection("tasks").findOne(
       { _id: new ObjectID("5d7ca75695a2e022041e5682") },
       (error, task) => {
         if (error) {
-          return console.log("Unable to fetch data!");
+          return console.log("Unable to fetch data bhai!");
         }
 
         console.log(task);
