@@ -32,9 +32,9 @@ MongoClient.connect(
     //   });
 
     db.collection("tasks")
-      .updateMany({ completed: false }, { $set: { completed: true } })
+      .deleteOne({ discription: "kaam ho gya" })
       .then(result => {
-        console.log(result.modifiedCount);
+        console.log(result.deletedCount);
       })
       .catch(error => {
         console.log(error);
