@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
 
 const Task = mongoose.model("Task", {
-  discription: {}
+  discription: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  completed: {
+    type: false,
+    default: false
+  }
 });
