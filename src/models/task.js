@@ -8,7 +8,9 @@ const Task = mongoose.model("Task", {
   },
 
   completed: {
-    type: false,
+    type: Boolean,
     default: false
   }
 });
+
+module.exports = Task;
