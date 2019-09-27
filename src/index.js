@@ -67,19 +67,18 @@ app.get("/tasks", async (req, res) => {
   }
 });
 
-app.get("/tasks/:id", (req, res) => {
+app.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
 
-  Task.findById(_id)
-    .then(task => {
-      if (!task) {
-        return res.status(404).send();
-      }
-      res.status(200).send(task);
-    })
-    .catch(e => {
-      res.status(500).send("id not found!");
-    });
+  try {
+    const task = await Task.findById(_id);
+    if (!task) {
+      res.send(404).send();
+    }
+    res.send(task);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 app.listen(port, () => {
