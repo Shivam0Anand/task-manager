@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Add user
 app.post("/users", async (req, res) => {
   //   console.log(req.body);
   //   res.send("test ok!");
@@ -21,6 +22,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// read users
 app.get("/users", async (req, res) => {
   try {
     const users = await User.find({});
@@ -30,6 +32,7 @@ app.get("/users", async (req, res) => {
   }
 });
 
+// Read by id
 app.get("/users/:id", async (req, res) => {
   const _id = req.params.id;
   try {
@@ -42,6 +45,33 @@ app.get("/users/:id", async (req, res) => {
     res.send(user);
   } catch (e) {
     res.status(404).send(e);
+  }
+});
+
+// Update data
+app.patch("/users/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["name", "email", "password", "age"];
+  const isValidOperation = updates.every(update => {
+    allowedUpdates.includes(update);
+  });
+
+  if (!isValidOperation) {
+    return res.status(400).send("error: Invalid updates!");
+  }
+
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!user) {
+      return res.status(404).send();
+    }
+
+    res.status(200).send(user);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 
@@ -63,7 +93,7 @@ app.get("/tasks", async (req, res) => {
     const tasks = await Task.find({});
     res.status(200).send(tasks);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
@@ -73,11 +103,11 @@ app.get("/tasks/:id", async (req, res) => {
   try {
     const task = await Task.findById(_id);
     if (!task) {
-      res.send(404).send();
+      return res.send(404).send();
     }
     res.send(task);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send();
   }
 });
 
