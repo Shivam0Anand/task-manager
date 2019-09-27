@@ -13,15 +13,15 @@ const Task = require("../src/models/task");
 //     console.log(e);
 //   });
 
-const deleteTaskAndCount = async (id, completed) => {
-  await Task.findByIdAndDelete(id);
-  const unCompletedTasks = await Task.find({ completed });
-  return unCompletedTasks;
+const deleteTaskAndCount = async id => {
+  const task = await Task.findByIdAndDelete(id);
+  const count = await Task.countDocuments({ completed: false });
+  return count;
 };
 
-deleteTaskAndCount("5d8ca62eff1ecf2f4c356a8d", false)
-  .then(unCompletedTasks => {
-    console.log(unCompletedTasks);
+deleteTaskAndCount("5d8cc15716e16a341c9d6957")
+  .then(count => {
+    console.log(count);
   })
   .catch(e => {
     console.log(e);
