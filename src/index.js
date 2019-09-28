@@ -13,15 +13,3 @@ app.use(taskRouter);
 app.listen(port, () => {
   console.log("we r on port " + port);
 });
-
-const bcrypt = require("bcrypt");
-
-const pass = async () => {
-  const password = "hello!123";
-  const incryptPass = await bcrypt.hash(password, 8);
-
-  console.log(password);
-  console.log(incryptPass);
-};
-
-pass();

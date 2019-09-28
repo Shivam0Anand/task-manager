@@ -49,9 +49,9 @@ router.get("/tasks/:id", async (req, res) => {
 router.patch("/tasks/:id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description", "completed"];
-  const isValidOperation = updates.every(update => {
-    allowedUpdates.includes(update);
-  });
+  const isValidOperation = updates.every(update =>
+    allowedUpdates.includes(update)
+  );
 
   if (!isValidOperation) {
     return res.status(400).send("error: Invalid request");
