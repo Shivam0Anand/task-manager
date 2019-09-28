@@ -111,7 +111,7 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
-app.post("/tasks/:id", async (req, res) => {
+app.patch("/tasks/:id", async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["discription", "completed"];
   const isValidOperation = updates.every(update => {
