@@ -111,6 +111,32 @@ app.get("/tasks/:id", async (req, res) => {
   }
 });
 
+app.post("/tasks/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["discription", "completed"];
+  const isValidOperation = updates.every(update => {
+    allowedUpdates.includes(update);
+  });
+
+  if (!isValidOperation) {
+    return res.status(400).send("error: Invalid request");
+  }
+
+  try {
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!task) {
+      return res.status(400).send();
+    }
+
+    res.status(200).send(task);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 app.listen(port, () => {
   console.log("we r on port " + port);
 });
