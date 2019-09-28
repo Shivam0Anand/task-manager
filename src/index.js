@@ -75,7 +75,7 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
-// Delete
+// Delete User
 
 app.delete("/users/:id", async (req, res) => {
   try {
@@ -88,6 +88,8 @@ app.delete("/users/:id", async (req, res) => {
     res.status(500).send(e);
   }
 });
+
+// Create Task
 
 app.post("/tasks", async (req, res) => {
   //   res.send("test OK!");
@@ -102,6 +104,8 @@ app.post("/tasks", async (req, res) => {
   }
 });
 
+// Read Tasks
+
 app.get("/tasks", async (req, res) => {
   try {
     const tasks = await Task.find({});
@@ -110,6 +114,8 @@ app.get("/tasks", async (req, res) => {
     res.status(500).send(e);
   }
 });
+
+// Read Task
 
 app.get("/tasks/:id", async (req, res) => {
   const _id = req.params.id;
@@ -124,6 +130,8 @@ app.get("/tasks/:id", async (req, res) => {
     res.status(500).send();
   }
 });
+
+// Update Task
 
 app.patch("/tasks/:id", async (req, res) => {
   const updates = Object.keys(req.body);
@@ -145,6 +153,20 @@ app.patch("/tasks/:id", async (req, res) => {
       return res.status(400).send();
     }
 
+    res.status(200).send(task);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+// Delete Task
+
+app.delete("/tasks/:id", async (req, res) => {
+  try {
+    const task = await Task.findByIdAndDelete(req.params.id);
+    if (!task) {
+      res.status(404).send();
+    }
     res.status(200).send(task);
   } catch (e) {
     res.status(500).send(e);
