@@ -50,6 +50,8 @@ router.post("/users/logout", auth, async (req, res) => {
 
 router.post("/users/logoutAll", auth, async (req, res) => {
   try {
+    req.user.token = [];
+    await req.user.save();
   } catch (e) {
     res.status(500).send();
   }
