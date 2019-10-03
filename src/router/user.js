@@ -48,6 +48,8 @@ router.post("/users/logout", auth, async (req, res) => {
   }
 });
 
+// Logout All
+
 router.post("/users/logoutAll", auth, async (req, res) => {
   try {
     req.user.tokens = [];
