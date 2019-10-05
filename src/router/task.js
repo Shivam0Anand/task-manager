@@ -12,9 +12,9 @@ router.post("/tasks", auth, async (req, res) => {
 
   const task = new Task({
     ...req.body,
-    owner: req.body._id
+    owner: req.user._id
   });
-  console.log(task);
+  // console.log(task);
 
   try {
     await task.save();
