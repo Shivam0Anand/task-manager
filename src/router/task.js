@@ -26,9 +26,12 @@ router.post("/tasks", auth, async (req, res) => {
 
 // Read Tasks
 
-router.get("/tasks", async (req, res) => {
+router.get("/tasks", auth, async (req, res) => {
   try {
-    const tasks = await Task.find({});
+    // const tasks = await Task.find({ owner: req.user._id });
+
+    await req.user.populate("tasks").execPopulate();
+    res.send(req.user.tasks);
     res.status(200).send(tasks);
   } catch (e) {
     res.status(500).send(e);
@@ -41,8 +44,6 @@ router.get("/tasks/:id", auth, async (req, res) => {
   const _id = req.params.id;
 
   try {
-    // const task = await Task.findById(_id);
-
     const task = await Task.findOne({ _id, owner: req.user._id });
 
     if (!task) {
