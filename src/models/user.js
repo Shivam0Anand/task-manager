@@ -4,54 +4,59 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Task = require("./task");
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Invalid Email  ");
-      }
-    }
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 7,
-    validate(value) {
-      if (value.toLowerCase().includes("password")) {
-        throw new Error("Password should not be password!");
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid Email  ");
+        }
       }
     },
-    trim: true
-  },
+    password: {
+      type: String,
+      required: true,
+      minlength: 7,
+      validate(value) {
+        if (value.toLowerCase().includes("password")) {
+          throw new Error("Password should not be password!");
+        }
+      },
+      trim: true
+    },
 
-  age: {
-    type: Number,
-    default: 3,
-    validate(value) {
-      if (value < 2) {
-        throw new Error("Age must be greater than 2");
+    age: {
+      type: Number,
+      default: 3,
+      validate(value) {
+        if (value < 2) {
+          throw new Error("Age must be greater than 2");
+        }
       }
-    }
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true
+        }
+      }
+    ]
   },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true
-      }
-    }
-  ]
-});
+  {
+    timestamps: true
+  }
+);
 
 userSchema.virtual("tasks", {
   ref: "Task",
