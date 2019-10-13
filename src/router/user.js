@@ -121,11 +121,11 @@ router.delete("/users/me", auth, async (req, res) => {
 const upload = multer({
   dest: "avatars",
   limits: {
-    fileSize: 4000000
+    fileSize: 5000000
   },
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(img|png|jpg|jpeg)$/)) {
-      return cb(new Error("Please upload images in img, png, jpg or jpeg"));
+    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
+      return cb(new Error("Please upload images in png, jpg or jpeg"));
     }
 
     // cb(new Error("File must be pdf"));
