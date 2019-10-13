@@ -124,9 +124,9 @@ const upload = multer({
     fileSize: 4000000
   },
   fileFilter(req, file, cb) {
-    cb(new Error("File must be pdf"));
-    cb(undefined, true);
-    cb(undefined, false);
+    // cb(new Error("File must be pdf"));
+    // cb(undefined, true);
+    // cb(undefined, false);
   }
 });
 router.post("/users/me/avatar", upload.single("avatar"), (req, res) => {
