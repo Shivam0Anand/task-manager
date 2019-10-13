@@ -124,8 +124,12 @@ const upload = multer({
     fileSize: 4000000
   },
   fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(img|png|jpg|jpeg)$/)) {
+      return cb(new Error("Please upload images in img, png, jpg or jpeg"));
+    }
+
     // cb(new Error("File must be pdf"));
-    // cb(undefined, true);
+    cb(undefined, true);
     // cb(undefined, false);
   }
 });
