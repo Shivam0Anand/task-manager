@@ -1,6 +1,8 @@
 const express = require("express");
 const User = require("../models/user");
 const auth = require("../middleware/auth");
+const multer = require("multer");
+
 const router = new express.Router();
 
 // Add user
@@ -113,6 +115,22 @@ router.delete("/users/me", auth, async (req, res) => {
   } catch (e) {
     res.status(500).send(e);
   }
+});
+
+// Profile Pic
+const upload = multer({
+  dest: "avatars",
+  limits: {
+    fileSize: 4000000
+  },
+  fileFilter(req, file, cb) {
+    cb(new Error("File must be pdf"));
+    cb(undefined, true);
+    cb(undefined, false);
+  }
+});
+router.post("/users/me/avatar", upload.single("avatar"), (req, res) => {
+  res.status(200).send();
 });
 
 module.exports = router;
